@@ -15,6 +15,7 @@ describe 'icinga::default' do
   before do
     stub_command('/usr/share/icinga/bin/icinga --version | grep 1.11.1').and_return(false)
     stub_command("mysql --user=icinga --password=password icinga -e \"select * from icinga_dbversion\"").and_return(false)
+    stub_command('/usr/share/icinga/libexec/check_nagios -V | grep 1.5').and_return(false)
   end
 
   it 'include recipe icinga-core' do

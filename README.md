@@ -1,9 +1,16 @@
 [![Build Status](https://travis-ci.org/psyreactor/icinga-cookbook.svg?branch=master)](https://travis-ci.org/psyreactor/icinga-cookbook)
 
-icinga Cookbook
+Icinga Cookbook
 ===============
 
-This cookbook install Icinga-core from source.
+#####Install Icinga-core from source code.
+
+>"Icinga is an enterprise grade open source monitoring system which keeps watch over networks and any conceivable network resource, notifies the user of errors and recoveries and generates performance data for reporting. Scalable and extensible, Icinga can monitor complex, large environments across dispersed locations."
+
+#####Install Nagios Plugins from source code.
+
+> "Nagios plugins are standalone extensions to Nagios Core that provide low-level intelligence on how to monitor anything and everything with Nagios Core. Plugins operate as standalone applications, but are generally designed to be executed by Nagios Core."
+
 
 Requirements
 ------------
@@ -35,9 +42,13 @@ Recipes
 
 ####Icinga:default
 Include Icinga::core
+Include Icinga::plugins
 
 ####Icinga::core
 Install icinga-core from de source code.
+
+####Icinga::plugins
+Install Nagios Plugins from de source code.
 
 Attributes
 ----------
@@ -177,7 +188,7 @@ Local Auth htapasswd apache
   <tr>
     <td><tt>node[:icinga][:core][:filename]</tt></td>
     <td>String</td>
-    <td>Icinga filename to download without extencion</td>
+    <td>Icinga filename to download without extension</td>
     <td><tt>"icinga-#{node[:icinga][:core][:version]}"</tt></td>
   </tr>
   <tr>
@@ -249,6 +260,42 @@ Local Auth htapasswd apache
     <td><tt>icinga</tt></td>
   </tr>
 </table>
+
+####Icinga::plugins
+#####Basic config
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+  <tr>
+    <td><tt>node[:icinga][:nagios_plg][:version]</tt></td>
+    <td>String</td>
+    <td>Nagios Plugins version to install</td>
+    <td><tt>1.5</tt></td>
+  </tr>
+  <tr>
+    <td><tt>node[:icinga][:nagios_plg][:filename]</tt></td>
+    <td>String</td>
+    <td>Nagios Plugins filename to download without extension</td>
+    <td><tt>nagios-plugins-#{node[:icinga][:nagios_plg][:version]}</tt></td>
+  </tr>
+  <tr>
+    <td><tt>node[:icinga][:nagios_plg][:checksum]</tt></td>
+    <td>String</td>
+    <td>Nagios Plugins checksum for download source code</td>
+    <td><tt>5d426b0e303a5201073c342d8ddde8bafca1432b</tt></td>
+  </tr>
+  <tr>
+    <td><tt>node[:icinga][:nagios_plg][:checksum]</tt></td>
+    <td>String</td>
+    <td>Nagios Plugins url for download source code</td>
+    <td><tt>https://www.monitoring-plugins.org/download/#{node[:icinga][:nagios_plg][:filename]}.tar.gz</tt></td>
+  </tr>
+</table>
+
 Usage
 -----
 #### icinga::default
@@ -272,6 +319,8 @@ Contributing
 4. Write tests for your change (if applicable)
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
+
+[More details](https://github.com/psyreactor/icinga-cookbook/blob/master/CONTRIBUTING.md)
 
 License and Authors
 -------------------
