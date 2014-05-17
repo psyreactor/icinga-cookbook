@@ -1,0 +1,39 @@
+
+<VirtualHost *:80>
+
+   ServerName <%= node[:icinga][:core][:server_name] %>
+
+   <% unless node[:icinga][:core][:server_alias].nil? %>
+   ServerAlias <%= node[:icinga][:core][:server_alias] %>
+   <% end %>
+
+   RewriteEngine On
+
+   RewriteRule ^/$ http://<%= node[:icinga][:core][:server_name] %>/icinga [L]
+
+
+   ScriptAlias /icinga/cgi-bin <%= node[:icinga][:core][:path] %>/sbin
+
+   <Directory <%= node[:icinga][:core][:path] %>/sbin>
+      Options ExecCGI
+      AllowOverride None
+      Order allow,deny
+      Allow from all
+
+      <%= render "_#{node[:icinga][:auth][:config]}.erb" %>
+
+   </Directory>
+
+   Alias /icinga <%= node[:icinga][:core][:path] %>/share
+
+   <Directory <%= node[:icinga][:core][:path] %>/share>
+      DirectoryIndex index.html
+      Options -MultiViews -Indexes +FollowSymLinks
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+
+      <%= render "_#{node[:icinga][:auth][:config]}.erb" %>
+
+   </Directory>
+</VirtualHost>

@@ -1,0 +1,15 @@
+
+      AuthType NTLM
+      AuthName <%= node[:icinga][:auth][:ldap][:domain] %>
+      require valid-user
+      <% unless node[:icinga][:auth][:ldap][:groups].nil? %>
+      <% node[:icinga][:auth][:ldap][:groups].each do |group| %>
+      require group <%= group %>
+      <% end %>
+      <% end %>
+      PythonAuthenHandler pyntlm
+      PythonOption Domain <%= node[:icinga][:auth][:ldap][:domain] %>
+      PythonOption PDC <%= node[:icinga][:auth][:ldap][:pdc] %>
+      <% unless node[:icinga][:auth][:ldap][:bdc].nil? %>
+      PythonOption BDC <%= node[:icinga][:auth][:ldap][:bdc] %>
+      <% end %>

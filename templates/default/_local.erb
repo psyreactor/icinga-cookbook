@@ -1,0 +1,5 @@
+
+AuthName "icinga Access"
+AuthType Basic
+AuthUserFile <%= node[:icinga][:auth][:local][:file] %>
+Require valid-user
