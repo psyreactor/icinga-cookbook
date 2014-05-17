@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/psyreactor/icinga-cookbook.svg?branch=master)](https://travis-ci.org/psyreactor/icinga-cookbook)
+
 icinga Cookbook
 ===============
 
